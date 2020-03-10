@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arrItemNames = ['Jeruk', 'Mangga', 'Apel']
+        let arrPrice = [10000, 7000, 13000]
+        let arrStock = [10, 15, 5]
+        let arrInput = [0, 0, 0] // kenapa 0, supaya nanti pas perhitungan tidak ngaco
+
+        
+        let isCondition
+        let input1, input2, input3
+        let price = 0
+
+       
+        do {
+        let menu = ''
+        let choice = ''
+            for (i = 0; i < arrItemNames.length; i++) {
+            menu += `Harga ${arrItemNames[i]} Rp ${arrPrice[i]}/pcs (${arrStock[i]} items ready in stock)\n`
+            choice += `(${i + 1}) ${arrItemNames[i]}\n`
+        }
+        alert(menu)
+
+            choice = prompt('Silahkan Pilih Buah (Masukan Nomor)\n\n' + choice + '(4) CheckOut\n')
+            if (choice == 1) {
+                input1 = parseInt(prompt(" Input Qty Jeruk"))
+                if (input1 > arrStock[choice - 1] && input1 >= 0) {
+                    alert(' Stock Buah Tidak Mencukupi')
+                    isCondition = false
+                } else {
+                    arrInput[choice - 1] += input1
+                    arrStock [choice -1] -= input1
+                    isCondition = true
+                }
+            } else if (choice == 2) {
+                input2 = parseInt(prompt(" Input Qty Mangga "))
+                if (input2 > arrStock[choice - 1] && input2 >= 0) {
+                    alert(' Stock Buah Tidak Mencukupi')
+                    isCondition = false
+                } else {
+                    arrInput[choice - 1] += input2
+                    arrStock [choice -1] -= input2
+                    isCondition = true
+                }
+
+            } else if (choice == 3) {
+                input3 = parseInt(prompt(" Input Qty Apel "))
+                if (input3 > arrStock[choice - 1] && input3 >= 0) {
+                    alert(' Stock Buah Tidak Mencukupi')
+                    isCondition = false
+                } else {
+                    arrInput[choice - 1] += input3
+                    arrStock [choice -1] -= input3
+                    isCondition = true
+                }
+            } else if (choice == 4) {
+                    for (i = 0; i < arrItemNames.length; i++) {
+                        price += arrInput[i] * arrPrice[i]
+                        isCondition = false
+                    }
+                    alert('Total Harga adalah' + price)
+
+                    let bayar = parseInt(
+                        prompt(" Masukan Jumlah Uang yang akan Dibayarkan")
+                    );
+                    let kembalian = bayar - price;
+                    if (price == bayar) {
+                        alert("Terima Kasih Sudah Bayar dengan Uang Pas");
+                    } else if (price > bayar) {
+                        alert("Uang Anda tidak mencukupi " + kembalian);
+                    } else {
+                        alert(" ini adalah kembalian anda" + kembalian);
+                    }
+
+                    isCondition = confirm("Apakah anda ingin berbelanja lagi"); // CONFIRM DIGUNAKAN UNTUK YES OR CANCEL
+                }
+            
+        } 
+        while (isCondition)
+
+    </script>
+</body>
+
+</html>

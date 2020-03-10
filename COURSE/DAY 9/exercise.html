@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        table, tr, td,th{
+            border: 1px solid black;
+            border-collapse: collapse
+        }
+    </style>
+  <table id = "1">
+      <tr>
+          <th>Nomor</th>
+          <th>Nama</th>
+          <th>Harga</th>
+          <th>Stock</th>
+      </tr>
+  </table>
+    <script> 
+    let arrItemNames = ['Jeruk', 'Mangga', 'Apel']
+    let arrPrice = [10000, 7000, 13000]
+    let arrStock = [10, 10, 10]
+    let menu = ''
+    // for (i = 0; i < arrItemNames.length; i++) {
+    //         menu += `${i +1}. <strong>${arrItemNames[i]}</strong> <i>Rp ${arrPrice[i]}/pcs</i> (${arrStock[i]} items ready in stock)<br>`
+    //     }
+    //     document.getElementById("1").innerHTML = `${menu}` //document.getElementById("1") = ini adalah selector
+    for (i = 0; i < arrItemNames.length; i++) {
+        document.getElementById("1").innerHTML += `<tr>
+        <td> ${i +1} </td>
+        <td> ${arrItemNames[i]} </td>
+        <td> Rp ${arrPrice[i]} </td>
+        <td> ${arrStock[i]} </td>
+        </tr>`
+
+    }
+   
+
+    </script>
+   
+   
+   
+</body>
+</html>
+// research mengenai tag html

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let jeruk = 10000;
+      let stockjeruk = 20;
+
+      let mangga = 15000;
+      let stockmangga = 20;
+
+      let leci = 25000;
+      let stockleci = 20;
+
+      let apel = 20000;
+      let stockapel = 20;
+
+      let input1, input2, input3, input4, input5;
+      let condition = true;
+      do {
+        alert(
+          "Jeruk " +
+            jeruk +
+            " " +
+            stockjeruk +
+            "\n" +
+            "Mangga " +
+            mangga +
+            " " +
+            stockmangga +
+            "\n" +
+            "Leci " +
+            leci +
+            " " +
+            stockleci +
+            "\n" +
+            "Apel " +
+            apel +
+            " " +
+            stockapel
+        );
+        do {
+          input1 = parseInt(prompt(" Input Qty Jeruk"));
+          if (input1 > stockjeruk) {
+            alert("Stock buah tidak mencukupi");
+            condition = true;
+          } else {
+            condition = false;
+            stockjeruk = stockjeruk - input1; // perhitungan pengurangan stock
+          }
+        } while (condition);
+
+        do {
+          input2 = parseInt(prompt(" Input Qty Mangga "));
+          if (input2 > stockmangga) {
+            alert("Stock buah tidak mencukupi");
+            condition = true;
+          } else {
+            condition = false;
+            stockmangga = stockmangga - input2;
+          }
+        } while (condition);
+        do {
+          input3 = parseInt(prompt(" Input Qty Leci"));
+          if (input3 > stockleci) {
+            alert("Stock buah tidak mencukupi");
+            condition = true;
+          } else {
+            condition = false;
+            stockleci = stockleci - input3;
+          }
+        } while (condition);
+        do {
+          input4 = parseInt(prompt(" Input Qty Apel"));
+          if (input4 > stockapel) {
+            alert("Stock buah tidak mencukupi");
+            condition = true;
+          } else {
+            condition = false;
+            stockapel = stockapel - input4;
+          }
+        } while (condition);
+        let harga =
+          input1 * jeruk + input2 * mangga + input3 * leci + input4 * apel;
+        alert("Total Harga adalah" + harga);
+        let bayar = parseInt(
+          prompt(" Masukan Jumlah Uang yang akan Dibayarkan")
+        );
+        let kembalian = bayar - harga;
+        if (harga == bayar) {
+          alert("Terima Kasih Sudah Bayar dengan Uang Pas");
+        } else if (harga > bayar) {
+          alert("Uang Anda tidak mencukupi " + kembalian);
+        } else {
+          alert(kembalian);
+        }
+        input5 = confirm("Apakah anda ingin berbelanja lagi"); // CONFIRM DIGUNAKAN UNTUK YES OR CANCEL
+      } while (input5);
+    </script>
+  </body>
+</html>

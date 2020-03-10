@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         let input1 = parseInt(prompt(' Input Berat Badan (KG)'))
+         let input2 = parsefloat(prompt(' Input Tinggi Badan (M)'))
+         int = input1 / (input2 * input2)
+         alert(int)
+         if (int >= 40){
+             alert("Obesitas")
+         }
+         else if (int >= 30 && int <= 39){
+             alert("BB Sangat Berlebih")
+         }
+         else if (int >= 25 && int <= 29){
+             alert("BB Berlebih")
+         }
+         else if (int >= 18.5 && int <= 24){
+             alert("BB Ideal")
+         }
+         else if (int >= 18.5){
+             alert("BB kurang")
+         }
+
+    </script>
+</body>
+</html>

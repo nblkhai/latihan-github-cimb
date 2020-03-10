@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arrNumbers = [" "]
+
+        function reverseNumber(input){
+            let splitString = input.split("")
+            let reverseArray = splitString.reverse()
+            return reverseArray.join("")
+
+        }
+        let input = prompt('Enter a Word')
+        alert(reverseNumber(input))
+    </script>
+</body>
+</html>

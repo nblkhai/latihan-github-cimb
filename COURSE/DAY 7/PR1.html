@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Produk {
+            constructor(paramNama, paramHarga, paramStock, paramBeli) {
+                this.nama = paramNama
+                this.harga = paramHarga
+                this.stock = paramStock
+                this.beli = paramBeli
+            }
+        }
+        class Clothing extends Produk {
+            constructor(paramNama, paramHarga, paramStock, paramBeli, paramSize) {
+                super(paramNama, paramHarga, paramStock, paramBeli)
+                this.size = paramSize
+            }
+        }
+        class Buah extends Produk {
+            constructor(paramNama, paramHarga, paramStock, paramBeli, paramExpired) {
+                super(paramNama, paramHarga, paramStock, paramBeli)
+                this.expired = paramExpired
+            }
+        }
+        class Elektronik extends Produk {
+            constructor(paramNama, paramHarga, paramStock, paramBeli, paramGaransi) {
+                super(paramNama, paramHarga, paramStock, paramBeli)
+                this.garansi = paramGaransi
+            }
+        }
+
+        let arrData = [
+            new Buah('Jeruk', 5000, 10, 0, '2020-5-12'),
+            new Buah('Mangga', 5000, 20, 0, '2019-5-1'),
+            new Buah('Apel', 5000, 10, 0, '2020-5-2')
+        ]
+        let arrBaju = [
+            new Clothing('Sepatu', 5000, 10, 0, 'L'),
+            new Clothing('Kemeja', 5000, 10, 0, 'L'),
+            new Clothing('Jaket', 5000, 20, 0, 'L')
+        ]
+        let arrElektronik = [
+            new Elektronik('TV', 5000, 20, 0, 'Garansi'),
+            new Elektronik('HP', 5000, 10, 0, 'Tidak Garansi'),
+            new Elektronik('Kulkas', 5000, 10, 0, 'Garansi')
+        ]
+        // let arrBulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli',
+        //     'Agustus', 'September', 'Oktober', 'November', 'Desember']
+        let date = new Date()
+        let tanggal = date.getDate()
+        let bulan = date.getMonth()
+        let tahun = date.getFullYear()
+        date = (tahun + '-' + (bulan+1) + '-' + tanggal)
+
+        let menu = ''
+        let inputUserMenu
+        let inputUserMenuIndex
+        let inputUserQty
+        let totalPrice
+        let userPayment
+        let nota, cartCount
+        let arrmenuAwal = ['Admin', 'User', 'Exit']
+        let menuUtama = ''
+        let inputAdminMenu
+        let hapusItem
+        let itemName
+        let condition
+
+        programUtama()
+
+        function deleteItemBuah(deleteBuah) {
+
+            for (let i = 0; i < arrData.length; i++) {
+                if (arrData[i].nama.toLowerCase() == deleteBuah.toLowerCase()) {
+                    itemName = arrData[i].nama
+                    arrData.splice(i, 1)
+                    alert(itemName + ' Deleted')
+
+                    return
+                }
+
+            }
+            alert('Invalid Choice')
+        }
+        function deleteItemBaju(deleteBaju) {
+
+            for (let i = 0; i < arrBaju.length; i++) {
+                if (arrBaju[i].nama.toLowerCase() == deleteBaju.toLowerCase()) {
+                    itemName = arrBaju[i].nama
+                    arrBaju.splice(i, 1)
+                    alert(itemName + ' Deleted')
+
+                    return
+                }
+
+            }
+            alert('Invalid Choice')
+        }
+        function deleteItemElektronik(deleteElektronik) {
+
+            for (let i = 0; i < arrElektronik.length; i++) {
+                if (arrElektronik[i].nama.toLowerCase() == deleteElektronik.toLowerCase()) {
+                    itemName = arrElektronik[i].nama
+                    arrElektronik.splice(i, 1)
+                    alert(itemName + ' Deleted')
+
+                    return
+                }
+
+            }
+            alert('Invalid Choice')
+        }
+        function showMenu(isUser) {
+            menu = ''
+            for (let i = 0; i < arrData.length; i++) {
+                menu += `${i + 1}. ${arrData[i].nama} Rp. ${arrData[i].harga}/pcs (${arrData[i].stock} items in stock) ${arrData[i].expired}\n`
+
+            }
+            if (isUser) {
+                menu += `${arrData.length + 1}. Checkout \n${arrData.length + 2}. Daftar Belanja \n${arrData.length + 3}. Exit`
+            }
+            return menu
+        }
+        function menuUser() {
+
+            let menu = prompt(`Silakan pilih produk apa yang ingin dibeli\n 1. Buah\n 2. Pakaian\n 3. Elektronik\n 4. Checkout Semua Belanja\n 5. Daftar Semua Belanja`)
+            if (menu == 1) {
+                do {
+                    inputUserMenu = prompt(showMenu(true))
+                    inputUserMenuIndex = inputUserMenu - 1
+
+                    if (inputUserMenu == arrData.length + 1) {
+                        checkOut()
+                        condition = confirm(' Belanja lagi ?')
+                    } else if (inputUserMenu == arrData.length + 2) {
+                        showCart()
+                    } else if (inputUserMenu == arrData.length + 3) {
+                        condition = false
+                        alert('Log Out')
+                    } else {
+                        inputUserBeli()
+                    }
+                } while (condition)
+            } else if (menu == 2) {
+                menuBaju()
+            } else if (menu == 3) {
+                menuElektronik()
+            } else if (menu == 4) {
+                checkOutBelanja()
+            } else if (menu == 5) {
+                showCartBelanja()
+            }
+
+        }
+        function showMenuBaju(isUser) {
+            menu = ''
+            for (let i = 0; i < arrBaju.length; i++) {
+                menu += `${i + 1}. ${arrBaju[i].nama} Rp. ${arrBaju[i].harga}/pcs (${arrBaju[i].stock} items in stock) Size ${arrBaju[i].size} \n`
+
+            } if (isUser) {
+                menu += `${arrBaju.length + 1}. Checkout \n${arrBaju.length + 2}. Daftar Belanja \n${arrBaju.length + 3}. Exit`
+            }
+            return menu
+        }
+        function menuBaju() {
+            do {
+                inputUserMenu = prompt(showMenuBaju(true))
+                inputUserMenuIndex = inputUserMenu - 1
+                if (inputUserMenu == arrBaju.length + 1) {
+                    checkOutBaju()
+                    condition = confirm(' Belanja lagi ?')
+                } else if (inputUserMenu == arrBaju.length + 2) {
+                    showCartBaju()
+                } else if (inputUserMenu == arrBaju.length + 3) {
+                    condition = false
+                    alert('Log Out')
+                } else {
+                    inputUserBeliBaju()
+                }
+            } while (condition)
+        }
+        function showMenuElektronik(isUser) {
+            menu = ''
+            for (let i = 0; i < arrElektronik.length; i++) {
+                menu += `${i + 1}. ${arrElektronik[i].nama} Rp. ${arrElektronik[i].harga}/pcs (${arrElektronik[i].stock} items in stock) ${arrElektronik[i].garansi} \n`
+
+            } if (isUser) {
+                menu += `${arrElektronik.length + 1}. Checkout \n${arrElektronik.length + 2}. Daftar Belanja \n${arrElektronik.length + 3}. Exit`
+            }
+            return menu
+        }
+        function menuElektronik() {
+            do {
+                inputUserMenu = prompt(showMenuElektronik(true))
+                inputUserMenuIndex = inputUserMenu - 1
+                if (inputUserMenu == arrElektronik.length + 1) {
+                    checkOutElektronik()
+                    condition = confirm('Yakin mau Belanja lagi ?')
+                } else if (inputUserMenu == arrElektronik.length + 2) {
+                    showCartElektronik()
+                } else if (inputUserMenu == arrElektronik.length + 3) {
+                    condition = false
+                    alert('Log Out')
+                } else {
+                    inputUserBeliElektronik()
+                }
+            } while (condition)
+        }
+        function inputUserBeli() {
+            do {
+                if (arrData[inputUserMenuIndex].Expired >= date) {
+                    inputUserQty = parseInt(prompt(`Mau beli berapa ${arrData[inputUserMenuIndex].nama}?`))
+                    if (inputUserQty < 0) {
+                        alert(' Salah Input')
+                    } else if (arrData[inputUserMenuIndex].stock >= (inputUserQty + arrData[inputUserMenuIndex].beli)) {
+                        arrData[inputUserMenuIndex].beli += inputUserQty
+                        // arrData[inputUserMenuIndex].Stock -= inputUserQty
+                        condition = false
+                    } else {
+                        alert(`Stock ${arrData[inputUserMenuIndex].nama} tidak cukup`)
+                        condition = true
+                    }
+                } else {
+                    alert(arrData[inputUserMenuIndex].nama + ' Sudah Kadaluarsa')
+                    condition = false
+                }
+            } while (condition)
+            condition = true
+        }
+        function inputUserBeliBaju() {
+            do {
+                inputUserQty = parseInt(prompt(`Mau beli berapa ${arrBaju[inputUserMenuIndex].nama}?`))
+                if (inputUserQty < 0) {
+                    alert('Inputnya Ngasal Nih')
+                } else if (arrBaju[inputUserMenuIndex].stock >= (inputUserQty + arrBaju[inputUserMenuIndex].beli)) {
+                    arrBaju[inputUserMenuIndex].beli += inputUserQty
+                    // arrBaju[inputUserMenuIndex].Stock -= inputUserQty
+                    condition = false
+                } else {
+                    alert(`Stock ${arrBaju[inputUserMenuIndex].nama} tidak cukup`)
+                    condition = true
+                }
+            } while (condition)
+            condition = true
+        }
+        function inputUserBeliElektronik() {
+            do {
+                if (arrElektronik[inputUserMenuIndex].garansi == 'Garansi') {
+                    inputUserQty = parseInt(prompt(`Mau beli berapa ${arrElektronik[inputUserMenuIndex].nama}?`))
+                    if (inputUserQty < 0) {
+                        alert(`Inputnya Ngasal nih`)
+                    } else if (arrElektronik[inputUserMenuIndex].stock >= (inputUserQty + arrElektronik[inputUserMenuIndex].beli)) {
+                        arrElektronik[inputUserMenuIndex].beli += inputUserQty
+                        // arrElektronik[inputUserMenuIndex].Stock -= inputUserQty
+                        condition = false
+                    } else {
+                        alert(`Stock ${arrElektronik[inputUserMenuIndex].nama} tidak cukup`)
+                        condition = true
+                    }
+                } else {
+                    let konfirmasi = confirm(' TIDAK ADA GARANSI!!')
+                    if (konfirmasi) {
+                        inputUserQty = parseInt(prompt(`Mau beli berapa ${arrElektronik[inputUserMenuIndex].nama}?`))
+                        if (inputUserQty < 0) {
+                            alert(` Salah Input`)
+                        } else if (arrElektronik[inputUserMenuIndex].stock >= (inputUserQty + arrElektronik[inputUserMenuIndex].beli)) {
+                            arrElektronik[inputUserMenuIndex].beli += inputUserQty
+                            // arrElektronik[inputUserMenuIndex].Stock -= inputUserQty
+                            condition = false
+                        } else {
+                            alert(`Stock ${arrElektronik[inputUserMenuIndex].nama} tidak cukup`)
+                            condition = true
+                        }
+                    }
+                }
+            } while (condition)
+            condition = true
+        }
+        function totalBelanja() {
+            userPayment = prompt(`Total belanjaan anda sebesar IDR ${totalPrice}`)
+
+            if (userPayment > totalPrice) {
+                alert(`Kembalian anda Rp. ${userPayment - totalPrice}`)
+                condition = false
+            } else if (userPayment < totalPrice) {
+                alert(`Uang anda kurang Rp. ${totalPrice - userPayment}`)
+                condition = true
+            } else if (userPayment == totalPrice) {
+                alert('Terima kasih sudah membayar dengan uang pas')
+                condition = false
+            }
+        }
+        function totalBelanjaBaju() {
+            userPayment = prompt(`Total belanjaan anda sebesar IDR ${totalPrice}`)
+
+            if (userPayment > totalPrice) {
+                alert(`Kembalian anda Rp. ${userPayment - totalPrice}`)
+                condition = false
+            } else if (userPayment < totalPrice) {
+                alert(`Uang anda kurang Rp. ${totalPrice - userPayment}`)
+                condition = true
+            } else if (userPayment == totalPrice) {
+                alert('Terima kasih sudah membayar dengan uang pas')
+                condition = false
+            }
+        }
+        function totalBelanjaElektronik() {
+            userPayment = prompt(`Total belanjaan anda sebesar IDR ${totalPrice}`)
+
+            if (userPayment > totalPrice) {
+                alert(`Kembalian anda Rp. ${userPayment - totalPrice}`)
+                condition = false
+            } else if (userPayment < totalPrice) {
+                alert(`Uang anda kurang Rp. ${totalPrice - userPayment}`)
+                condition = true
+            } else if (userPayment == totalPrice) {
+                alert('Terima kasih sudah membayar dengan uang pas')
+                condition = false
+            }
+        }
+        function showCart() {
+            nota = ''
+            cartCount = 0
+            for (let i = 0; i < arrData.length; i++) {
+                if (arrData[i].beli > 0) {
+                    nota += `${arrData[i].nama} beli ${arrData[i].beli} pcs \n`
+                    cartCount = 1
+                }
+                if (cartCount == 0 && i == arrData.length - 1) {
+                    alert('Cart Anda Kosong')
+                    condition = true
+                }
+            }
+            if (nota) {
+                alert(nota)
+            }
+        }
+        function showCartBaju() {
+            nota = ''
+            cartCount = 0
+            for (let i = 0; i < arrBaju.length; i++) {
+                if (arrBaju[i].beli > 0) {
+                    nota += `${arrBaju[i].nama} beli ${arrBaju[i].beli} pcs \n`
+                    cartCount = 1
+                }
+                if (cartCount == 0 && i == arrBaju.length - 1) {
+                    alert('Cart Anda Kosong')
+                    condition = true
+                }
+            }
+            if (nota) {
+                alert(nota)
+            }
+        }
+        function showCartElektronik() {
+            nota = ''
+            cartCount = 0
+            for (let i = 0; i < arrElektronik.length; i++) {
+                if (arrElektronik[i].Beli > 0) {
+                    nota += `${arrElektronik[i].nama} beli ${arrElektronik[i].beli} pcs \n`
+                    cartCount = 1
+                }
+                if (cartCount == 0 && i == arrElektronik.length - 1) {
+                    alert(' EMPTY CART')
+                    condition = true
+                }
+            }
+            if (nota) {
+                alert(nota)
+            }
+        }
+        function showCartSemuaBelanja() {
+            nota = ''
+            cartCount = 0
+            for (let i = 0; i < arrData.length; i++) {
+                if (arrData[i].Beli > 0) {
+                    nota += `${arrData[i].nama} beli ${arrData[i].beli} pcs \n`
+                    cartCount = 1
+                }
+                // if (cartCount == 0 && i == arrData.length - 1) {
+                //     alert('Cart Anda Kosong')
+                //     condition = true
+                // }
+            }
+            for (let i = 0; i < arrBaju.length; i++) {
+                if (arrBaju[i].beli > 0) {
+                    nota += `${arrBaju[i].nama} beli ${arrBaju[i].beli} pcs \n`
+                    cartCount = 1
+                }
+                // if (cartCount == 0 && i == arrBaju.length - 1) {
+                //     alert('Cart Anda Kosong')
+                //     condition = true
+                // }
+            }
+            for (let i = 0; i < arrElektronik.length; i++) {
+                if (arrElektronik[i].beli > 0) {
+                    nota += `${arrElektronik[i].nama} beli ${arrElektronik[i].beli} pcs \n`
+                    cartCount = 1
+                }
+                // if (cartCount == 0 && i == arrElektronik.length - 1) {
+                //     alert('Cart Anda Kosong')
+                //     condition = true
+                // }
+            } if (cartCount == 0) {
+                alert('EMPTY CART')
+                condition = true
+            }
+            if (nota) {
+                alert(nota)
+            }
+        }
+        function checkOut() {
+            totalPrice = 0
+            for (let i = 0; i < arrData.length; i++) {
+                totalPrice += arrData[i].harga * arrData[i].beli
+            }
+            do {
+                totalBelanja()
+            } while (condition)
+
+            for (let i = 0; i < arrData.length; i++) {
+                arrData[i].stock -= arrData[i].beli
+                arrData[i].beli = 0
+            }
+        }
+        function checkOutBaju() {
+            totalPrice = 0
+            for (let i = 0; i < arrBaju.length; i++) {
+                totalPrice += arrBaju[i].harga * arrBaju[i].beli
+            }
+            do {
+                totalBelanjaBaju()
+            } while (condition)
+
+            for (let i = 0; i < arrBaju.length; i++) {
+                arrBaju[i].stock -= arrBaju[i].beli
+                arrBaju[i].beli = 0
+            }
+        }
+        function checkOutElektronik() {
+            totalPrice = 0
+            for (let i = 0; i < arrElektronik.length; i++) {
+                totalPrice += arrElektronik[i].harga * arrElektronik[i].beli
+            }
+            do {
+                totalBelanjaElektronik()
+            } while (condition)
+
+            for (let i = 0; i < arrElektronik.length; i++) {
+                arrElektronik[i].stock -= arrElektronik[i].beli
+                arrElektronik[i].beli = 0
+            }
+        }
+        function checkOutSemuaBelanja() {
+            totalPrice = 0
+            for (let i = 0; i < arrData.length; i++) {
+                totalPrice += arrData[i].harga * arrData[i].beli
+            }
+            for (let i = 0; i < arrData.length; i++) {
+                arrData[i].stock -= arrData[i].beli
+                arrData[i].beli = 0
+            }
+            for (let i = 0; i < arrBaju.length; i++) {
+                totalPrice += arrBaju[i].harga * arrBaju[i].beli
+            }
+            for (let i = 0; i < arrBaju.length; i++) {
+                arrBaju[i].stock -= arrBaju[i].beli
+                arrBaju[i].beli = 0
+            }
+            for (let i = 0; i < arrElektronik.length; i++) {
+                totalPrice += arrElektronik[i].harga * arrElektronik[i].beli
+            }
+
+            for (let i = 0; i < arrElektronik.length; i++) {
+                arrElektronik[i].stock -= arrElektronik[i].beli
+                arrElektronik[i].beli = 0
+            }
+            let totalPrice_SemuaBarang = totalPrice + totalPrice + totalPrice
+            do {
+                userPayment = prompt(`Total belanjaan anda sebesar IDR ${totalPrice}`)
+
+                if (userPayment > totalPrice) {
+                    alert(`Kembalian anda Rp. ${userPayment - totalPrice}`)
+                    condition = false
+                } else if (userPayment < totalPrice) {
+                    alert(`Uang anda kurang Rp. ${totalPrice - userPayment}`)
+                    condition = true
+                } else if (userPayment == totalPrice) {
+                    alert('Terima kasih sudah membayar dengan uang pas')
+                    condition = false
+                }
+            } while (condition)
+        }
+        function menuAdminBuah() {
+            menu = prompt(`MENU ADMIN BUAH \n 1. Tambahkan Item Buah \n 2. Hapus Item Buah \n 3. Tampilkan Menu \n 4. Exit`)
+            if (menu == 1) {
+                arrData.push({
+                    nama: prompt(`Buah apa yang ditambah?`),
+                    harga: prompt(`Harganya Berapa?`),
+                    stock: prompt(`Stocknya Berapa?`),
+                    beli: (0),
+                    expired: prompt(`Expired \n Format: YYYY-MM-DD`)
+                })
+            } else if (menu == 2) {
+                let delete_Buah = prompt(`${showMenu(false)}\n KETIK NAMA BUAH YANG INGIN DIHAPUS`)
+                deleteItemBuah(delete_Buah)
+            }
+            else if (menu == 3) {
+                alert(showMenu(false))
+            } else {
+                condition = false
+            }
+        }
+        function menuAdminPakaian() {
+            menu = prompt(`MENU ADMIN PAKAIAN \n 1. Tambahkan Item Pakaian \n 2. Hapus Item Pakaian \n 3. Tampilkan Menu \n 4. Exit`)
+            if (menu == 1) {
+                arrBaju.push({
+                    nama: prompt(`Pakaian apa yang ditambah?`),
+                    harga: prompt(`Harganya Berapa?`),
+                    stock: prompt(`Stocknya Berapa?`),
+                    beli: (0),
+                    size: prompt('Ukuran Pakaian Anda?')
+                })
+            } else if (menu == 2) {
+                let delete_Baju = prompt(`${showMenuBaju()}\n KETIK NAMA PAKAIAN YANG INGIN DIHAPUS`)
+                deleteItemBaju(delete_Baju)
+            }
+            else if (menu == 3) {
+                alert(showMenuBaju(false))
+            } else {
+                condition = false
+            }
+        }
+        function menuAdminELektronik() {
+            menu = prompt(`MENU ADMIN ELEKTRONIK \n 1. Tambahkan Item Elektronik \n 2. Hapus Item Elektronik \n 3. Tampilkan Menu \n 4. Exit`)
+            if (menu == 1) {
+                arrElektronik.push({
+                    nama: prompt(`Elektronik apa yang ditambah?`),
+                    harga: prompt(`Harganya Berapa?`),
+                    stock: prompt(`Stocknya Berapa?`),
+                    beli: (0),
+                    garansi: prompt(`Garansi / Tidak Garansi?\n Contoh : Tidak Garansi`)
+                })
+            } else if (menu == 2) {
+                let delete_Elektronik = prompt(`${showMenuElektronik()}\n KETIK NAMA PAKAIAN YANG INGIN DIHAPUS`)
+                deleteItemElektronik(delete_Elektronik)
+            }
+            else if (menu == 3) {
+                alert(showMenu_Elektronik(false))
+            } else {
+                condition = false
+            }
+        }
+        function menuAdminUtama() {
+            menu = prompt(`MENU ADMIN UTAMA\n 1. Buah \n 2. Pakaian \n 3. Elektronik \n 4. Exit`)
+            if (menu == 1) {
+                menuAdminBuah()
+            } else if (menu == 2) {
+                menuAdminPakaian()
+            }
+            else if (menu == 3) {
+                menuAdminELektronik()
+            } else {
+                condition = false
+            }
+        }
+        function menuAwal() {
+            menuUtama = ''
+            for (let i = 0; i < arrmenuAwal.length; i++) {
+                menuUtama += `${i + 1}. \t${arrmenuAwal[i]}\n `
+            }
+            inputAdminMenu = prompt(`LOGIN AS\n ${menuUtama}`)
+        }
+        function programUtama() {
+            do {
+                menuAwal()
+                if (inputAdminMenu == arrmenuAwal.length - 2) {
+                    menuAdminUtama()
+                }
+                else if (inputAdminMenu == arrmenuAwal.length - 1) {
+                    menuUser()
+                } else {
+                    alert('Terima Kasih')
+                }
+                condition = true
+            } while (condition)
+        }
+    </script>
+</body>
+
+</html>

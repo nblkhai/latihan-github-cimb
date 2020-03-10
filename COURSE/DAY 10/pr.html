@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <style>
+        table, tr, td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        
+        }
+
+    </style>
+    <center>
+    <table> 
+        <thead>
+        <tr>
+        <th onclick="sortNama('nama')"> Nama</th>
+        <th onclick="sortJob('pekerjaan')"> Pekerjaan</th>
+        <th onclick="sortAge('umur')"> Umur </th>
+        <th> Picture</th>
+        </tr>
+        <tr>
+            <td><input id="inputNama" type="text"placeholder="Input Nama" required></td>
+            <td><input id="inputPekerjaan" type="text"placeholder="Input Pekerjaan"required></td>
+            <td><input id="inputUmur" type="text"placeholder="Input Umur" required></td>
+            <td><input id="inputPic" type="text"placeholder="Input Picture Link" required></td>
+            <td><input id="submitBtn" button type="button" value= "Submit" onclick="addData()"></td>
+           
+
+        </tr>
+    </thead>
+    <tbody id= "mainData">
+    </tbody>
+     </table>
+    </center>
+    <script>
+        class Orang{
+            constructor(nama, pekerjaan, umur, pic){
+                this.nama = nama
+                this.pekerjaan = pekerjaan
+                this.umur = umur
+                this.pic = pic
+            }           
+        }
+
+        let dataOrang = [
+            new Orang('Patrick', 'Rebahan', 30, 'patrick.jpg'),
+            new Orang('Hulk', 'Avengers', 40, 'hulk.jpg'),
+            new Orang('Doraemon', 'Kucing', 20, 'doraemon.jpg')
+    ]
+    const renderData = () => {
+        let hasil = ''
+        dataOrang.forEach(({nama, pekerjaan,umur,pic}, index) =>{
+            hasil += `<tr>
+                <td>${nama}</td>
+                <td>${pekerjaan}</td>
+                <td>${umur}</td>
+                <td><img src=${pic} width="100"></td>
+                <td><input type ="button" value="delete" onclick="deleteData(${index})"></td>`
+        })
+        document.getElementById("mainData").innerHTML = hasil //Delete all data alert
+        if (dataOrang.length == 0){
+            alert("Data Gak Ada")
+        }
+    }
+    renderData() 
+    const addData = () => {
+        if ((document.getElementById("inputNama").value == "") || (document.getElementById("inputPekerjaan").value =="") || (document.getElementById("inputUmur").value =="") || (document.getElementById("inputPic").value== "")){
+          alert("ISI DATA DULU BOSS")
+      } else {
+      let inputNama = document.getElementById("inputNama").value
+      let inputPekerjaan = document.getElementById("inputPekerjaan").value
+      let inputUmur = document.getElementById("inputUmur").value
+      let inputPic = document.getElementById("inputPic").value
+      let newData = new Orang(inputNama, inputPekerjaan, inputUmur, inputPic)
+      dataOrang.push(newData)
+      // INI UNTUK CLEAR INPUTAN ABIS DISUBMIT
+      inputNama = document.getElementById("inputNama").value = ""
+      inputPekerjaan = document.getElementById("inputPekerjaan").value =""
+      inputUmur = document.getElementById("inputUmur").value =""
+      inputPic = document.getElementById("inputPic").value = ""
+      renderData()
+      }
+    }
+    const deleteData = (deleteIndex) => {  
+      let inputNama = document.getElemen
+        dataOrang.splice(deleteIndex,1)
+        renderData()
+    }
+    let cond = 0
+const sortNama = () => {
+    function aSort(a,b){
+        if(a.nama < b.nama){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.nama > b.nama) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    dataOrang.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+renderData()
+
+}
+const sortJob = () => {
+    function aSort(a,b){
+        if(a.pekerjaan < b.pekerjaan){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.pekerjaan > b.pekerjaan) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    dataOrang.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+renderData()
+}
+const sortAge = () => {
+    function aSort(a,b){
+        if(a.umur < b.umur){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.umur > b.umur) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    dataOrang.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+renderData()
+}
+    </script>
+</body>
+</html>

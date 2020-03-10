@@ -1,0 +1,9 @@
+<> ini adalah tag 
+<h1> </h1> => ini adalah heading besar 
+<h2> </h2> => heading dari 1-6, semakin lama semakin kecil tulisannya 
+<p> </p> => untuk buat paragraf 
+&nbsp => untuk space 
+kalau mau enter, mulai <p></p> lagi 
+<br> => untuk line baru
+<input type="text"> => ini untuk input text 
+<input type="text" placeholder="Username"> => didalam input text ada tulisan Username
