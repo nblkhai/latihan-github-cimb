@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        table, th, tr, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          padding: 4px
+        }
+      </style>
+
+      <!-- FORM FILTER DATA -->
+
+    <fieldset>
+        <legend>Filter</legend>
+        <p>Nama &nbsp: <input input id="filterNama" type="text"><br></p>
+        <p>Harga &nbsp: <input input id="filterHargaMin" type="number"> - 
+            <input input id="filterHargaMax" type="number"> <br> </p>
+        <p>Category &nbsp: 
+            <select id= "filterCategory">
+            <option value="all">ALL</option>
+            <option value="fruit">Fruits</option>
+            <option value="electronic">Electronic</option>
+            <option value="fastfood">Fast Food</option>
+            </select>
+        </p>
+    </fieldset>
+
+    <!-- FILTER INPUT DATA -->
+    
+    <fieldset>
+        <legend>Input Data</legend>
+        <table>
+            <td><input type="text" id="inputNama" placeholder="Input Nama Barang"></td>
+            <td><input type="number" id="inputHarga" placeholder="Input Harga Barang"></td>
+            <td>
+                <select id= "inputCategory">
+                    <option value="all">ALL</option>
+                    <option value="fruit">Fruits</option>
+                    <option value="electronic">Electronic</option>
+                    <option value="fastfood">Fast Food</option>
+                    </select>
+            </td>
+            <td><input type="number" id="inputStock" placeholder="Input Stock Barang">
+        </table>
+        <br>
+        <td><input id="inputBtn" type="button" value="Input"></td>
+    </fieldset>
+
+    <!-- FILTER TABEL DATA -->
+
+    <fieldset>
+        <legend>Tabel Data</legend>
+        <table>
+            <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Category</th>
+                  <th>Nama</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Buy</th>
+                  <th colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody id="mainData">
+                  <tr>
+                      <td>123456001</td>
+                      <td>Fruit</td>
+                      <td>Pisang</td>
+                      <td>10000</td>
+                      <td>10</td>
+                      <td><input id="buyBtn" type="button" value="BUY" onclick="addToCart()"></td>
+                      <td><input id="deleteBtn" type="button" value="DELETE" onclick="deleteData()"></td>
+                      <td><input id="editBtn" type="button" value="EDIT" onclick="editData()"></td>
+                  </tr>
+
+              </tbody>
+        </table>
+    </fieldset>
+
+    <!-- FILTER CART -->
+
+    <fieldset>
+        <legend>Cart</legend>
+        <table>
+            <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Category</th>
+                  <th>Nama</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+        </table>
+        <br>
+        <td><input id="paymentBtn" type="button" value="Payment"></td>
+    </fieldset>
+
+    <!-- FILTER PAYMENT -->
+
+    <fieldset>
+        <legend>Payment</legend>
+        <h2>TRANSACTION DETAIL</h2>
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arrNumb = []
+        let inputNumb = []
+        let arrAlphabet = 'abcdefghijklmnopqrstuvwxyz'
+        let condition 
+        
+        do {
+            let string,newNumb,inputAlphabet
+            inputNumb = prompt('Input Number') 
+            inputAlphabet = arrAlphabet.split('')
+            for(let i = 0; i < inputNumb.length; i++){
+                for(let j = 0; j <arrAlphabet.length; j++){
+                    if(inputAlphabet[i].toLowerCase()==arrAlphabet[j]){
+                       string = true 
+
+                    }
+                }
+            }
+            if (string){
+                inputNumb
+                condition=false
+            }else{
+                inputNumb
+                newNumb = parseInt(inputNumb)
+                arrNumb.push(newNumb)
+                console.log(arrNumb)
+                condition = true
+            }
+
+        } while(condition)
+           
+
+    </script>
+</body>
+</html>

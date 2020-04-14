@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arrAlphabet = 'abcdefghijklmnopqrstuvwxyz'
+        let input = []
+        let result = []
+        let condition 
+        do {
+            let split,string
+            let inputNumb
+            let input = prompt('Input Number')
+            split=input.split('')
+            for(let i = 0; i < input.length; i++){
+                for(let j = 0; j <arrAlphabet.length; j++){
+                    if(split[i].toLowerCase()==arrAlphabet[j]){ 
+                        string=true
+                }
+            }
+            }
+            if (string){
+                input
+                condition=false
+            }else{
+                input
+                inputNumb = parseInt(input)
+                result.push(inputNumb)
+                console.log(result)
+                condition = true
+            let numbMin = 999999999
+            let numbMax = 0
+            for(let i = 0; i < result.length; i++){
+              if (numbMax < result[i]){
+                  numbMax = result[i]
+              } else{
+                  numbMax =numbMax
+              }
+              if (numbMin > result[i]){
+                  numbMin = result[i]
+              } else {
+                  numbMin = numbMin
+              }
+            }
+            console.log(`\n Angka Terkecil = ${numbMin} \n Angka Terbesar = ${numbMax}`)
+        }
+
+        } while(condition)
+    </script>
+</body>
+</html>

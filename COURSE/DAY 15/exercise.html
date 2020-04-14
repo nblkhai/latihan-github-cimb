@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>
+        <bold>DRAWING TOOLS</bold>
+    </h2>
+
+    <li>1. Persegi</li>
+    <li>2. Segitiga Siku-Siku Rata Kiri</li>
+    <li>3. Segitiga Siku-Siku Rata Kanan</li>
+    <td>
+        <p>
+            <input type="number" id="jenisBangunan" placeholder="Input Number" />
+        </p>
+    </td>
+    <td>
+        <p><input type="number" id="ukuran" placeholder="Input Size" /></p>
+    </td>
+    <td>
+        <p>
+            <input type="button" id="viewBtn" value="View" onclick="gambarBentuk()" />
+        </p>
+    </td>
+    <p id="hasil"></p>
+    <script>
+        // DOCUMENT.GETELEMENTBYID
+        const selector = id => {
+            return document.getElementById(id);
+        };
+
+        const gambarBentuk = () => {
+            let result = "";
+            let inputJenis = selector("jenisBangunan").value;
+            let inputUkuran = selector("ukuran").value;
+
+            // PERSEGI 
+            if (inputJenis == 1) {
+                for (let i = 0; i < inputUkuran; i++) {
+                    result += "<br>";
+                    for (let j = 0; j < inputUkuran; j++) {
+                        result += "*";
+                    }
+                }
+
+                // CLEAR TEXT BOX AFTER INPUT 
+                inputJenis = selector("jenisBangunan").value = "";
+                inputUkuran = selector("ukuran").value = "";
+                
+
+            // SEGITIGA SIKU-SIKU RATA KIRI    
+            } else if (inputJenis == 2) {
+                for (let i = 0; i < inputUkuran; i++) {
+                    result += "*";
+                    for (let j = 0; j < i; j++) {
+                        result += "*";
+                    }
+                    result += "<br>";
+                }
+                // CLEAR TEXT BOX AFTER INPUT
+                inputJenis = selector("jenisBangunan").value = "";
+                inputUkuran = selector("ukuran").value = "";
+
+            // SEGITIGA SIKU-SIKU RATA KANAN    
+            } else if (inputJenis == 3) {
+                for (let i = 1; i <= inputUkuran; i++) {
+                    for (let j = 0; j < inputUkuran - i; j++) {
+                        result += "&nbsp ";
+                    }
+                    for (let k = 0; k < i; k++) {
+                        result += "*";
+                    }
+                    result += "<br>";
+                }
+                // CLEAR TEXT BOX AFTER INPUT
+                inputJenis = selector("jenisBangunan").value = "";
+                inputUkuran = selector("ukuran").value = "";
+            }
+
+            selector("hasil").innerHTML = result;
+        };
+    </script>
+</body>
+
+</html>

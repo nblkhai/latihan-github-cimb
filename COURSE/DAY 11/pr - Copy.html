@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <style>
+        table, tr, td,th{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        
+        }
+
+    </style>
+    <center>
+    <table> 
+        <thead>
+        <tr>
+        <th onclick="sortNama('nama')"> Nama</th>
+        <th onclick="sortJob('pekerjaan')"> Pekerjaan</th>
+        <th onclick="sortAge('umur')"> Umur </th>
+        <th> Gender </th>
+        <th> Biodata </th>
+        <th> Picture</th>
+        </tr>
+        <tr>
+            <td><input id="inputNama" type="text"placeholder="Input Nama" required></td>
+            <td><input id="inputPekerjaan" type="text"placeholder="Input Pekerjaan"required></td>
+            <td><input id="inputUmur" type="number"placeholder="Input Umur" required></td>
+            <td>
+                <input type="radio" id="inputMale" name="gender" value="male">
+                    <label for="male">Male</label><br>
+                <input type="radio" id="inputFemale" name="gender" value="female">
+                    <label for="female">Female</label><br>
+            </td>
+            <td><textarea name="biodata" id="inputBiodata" cols="30" rows="10" onkeyup="charCounter(this.value)" placeholder="Input Biodata" required></textarea>
+            <br><p id= "charCount">0/30</p> 
+        </td>
+            <td><input id="inputPic" type="text"placeholder="Input Picture Link" required></td>
+            <td><input id="submitBtn" button type="button" value= "Submit" onclick="addData()"></td>
+           
+
+        </tr>
+    </thead>
+    <tbody id= "mainData">
+    </tbody>
+     </table>
+    </center>
+    <script>
+        class Orang{
+            constructor(nama, pekerjaan, umur, gender, biodata, pic){
+                this.nama = nama
+                this.pekerjaan = pekerjaan
+                this.umur = umur
+                this.gender = gender
+                this.biodata = biodata
+                this.pic = pic
+            }           
+        }
+
+        let dataOrang = [
+            new Orang('Patrick', 'Rebahan', 30, "Male", 'Memasak','patrick.jpg'),
+            new Orang('Hulk', 'Avengers', 40, "Male", 'Menonton', 'hulk.jpg'),
+            new Orang('Doraemon', 'Kucing', 20, "Female", 'Membaca', 'doraemon.jpg')
+    ]
+    const renderData = () => {
+        let hasil = ''
+        dataOrang.forEach(({nama, pekerjaan,umur,gender, biodata, pic}, index) =>{
+            let potChar ="" // untuk ... setelah 30 char 
+            if(biodata.length > 30){
+                potChar =  biodata.slice(0,30) + '...'
+            }else {
+                potChar = biodata
+            }
+            hasil += `<tr>
+                <td>${nama}</td>
+                <td>${pekerjaan}</td>
+                <td>${umur}</td>
+                <td>${gender}</td>
+                <td>${potChar}</td>
+                <td><img src=${pic} width="100"></td>
+                <td><input type ="button" value="delete" onclick="deleteData(${index})"></td>`
+        })
+        document.getElementById("mainData").innerHTML = hasil //Delete all data alert
+        if (dataOrang.length == 0){
+            alert("Data Gak Ada")
+        }
+    }
+    renderData() 
+    const addData = () => {
+        if ((document.getElementById("inputNama").value == "") || (document.getElementById("inputPekerjaan").value =="") || (document.getElementById("inputUmur").value =="")  || (document.getElementById("inputBiodata").value =="")|| (document.getElementById("inputPic").value== "")){
+          alert("ISI DATA DULU BOSS")
+      } else {
+      let inputNama = document.getElementById("inputNama").value
+      let inputPekerjaan = document.getElementById("inputPekerjaan").value
+      let inputUmur = document.getElementById("inputUmur").value
+      let inputPic = document.getElementById("inputPic").value
+      let inputBiodata = document.getElementById("inputBiodata").value
+      let inputMale = document.getElementById("inputMale").checked
+      let inputFemale = document.getElementById("inputFemale").checked
+      let inputGender 
+      if (inputMale){
+        inputGender = document.getElementById("inputMale").checked // Kalau diisinya .value akan selalu muncul walaupun blm diisi, karena udah ada valuenya 
+      } else if (inputFemale){
+        inputGender = document.getElementById("inputFemale").checked
+      }
+      let newData = new Orang(inputNama, inputPekerjaan, inputUmur, inputGender, inputBiodata, inputPic)
+      dataOrang.push(newData)
+      // INI UNTUK CLEAR INPUTAN ABIS DISUBMIT
+      inputNama = document.getElementById("inputNama").value = ""
+      inputPekerjaan = document.getElementById("inputPekerjaan").value =""
+      inputUmur = document.getElementById("inputUmur").value =""
+      document.getElementById("charCount").innerHTML = "0"
+      inputPic = document.getElementById("inputPic").value = ""
+      charCounter()
+      renderData()
+      }
+    }
+    const deleteData = (deleteIndex) => {  
+      let inputNama = document.getElemen
+        dataOrang.splice(deleteIndex,1)
+        renderData()
+    }
+
+    const charCounter = (str) =>{
+        let lengthChar = str.length
+        document.getElementById("charCount").innerHTML = lengthChar + '/30'
+
+    }
+    let cond = 0
+const sortNama = () => {
+    function aSort(a,b){
+        if(a.nama < b.nama){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.nama > b.nama) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    dataOrang.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+renderData()
+
+}
+const sortJob = () => {
+    function aSort(a,b){
+        if(a.pekerjaan < b.pekerjaan){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.pekerjaan > b.pekerjaan) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    dataOrang.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+renderData()
+}
+const sortAge = () => {
+    function aSort(a,b){
+        if(a.umur < b.umur){
+            if (cond == 0){
+                return -1
+            } return 1
+        } if(a.umur > b.umur) {
+            if (cond == 0){
+                return 1
+            } return -1
+        }
+        }
+    dataOrang.sort(aSort)
+    if(cond == 0){
+        cond = 1
+    } else {
+        cond = 0
+    }
+renderData()
+}
+
+    </script>
+</body>
+</html>

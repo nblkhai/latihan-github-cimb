@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        fieldset {
+            border: 1px solid black;
+            width: 100px;
+            margin: 0 auto;
+            text-align: left;
+        }
+    </style>
+    <center><h3>STOPWATCH</h3> </center>
+    
+    <fieldset>
+        <center>
+            <p><input type='button' id='startBtn' value='START' onclick='start()'></p>
+           <p> <input type='button' id='stopBtn' value='STOP' onclick='stopTimer()'></p>
+            <p><input type='button' id='lapBtn' value='LAP' onclick='lap()'></p>
+            <p><input type='button' id='resetBtn' value='RESET' onclick='reset()'></br></p>
+        </center>
+    </fieldset></br>
+    <center>
+        <h1>
+            <span id='hour'></span>
+            <span id='min'></span>
+            <span id='sec'></span>
+            <span id='milisec'></span>
+        </h1>
+        <span id='lapTimer'></span>
+    </center>
+</body>
+<script>
+
+    let a
+    let startTimer = 0
+    const start = () => {
+        startTimer = startTimer + 1
+        if (startTimer === 1) {
+            a = setInterval(timer, 10)
+            document.getElementById('startBtn').innerHTML = 'Stop'
+        } else if (startTimer === 2) {
+            document.getElementById('startBtn').innerHTML = 'Start'
+            startTimer = 0
+            stopTimer()
+        }
+    }
+
+    const stopTimer = () => {
+        clearInterval(a)
+    }
+
+    let milisec = 0, miliSecOut = 0
+    let sec = 0, secOut = 0
+    let min = 0, minOut = 0
+    let hour = 0, hourOut = 0
+
+    const timer = () => {
+
+        miliSecOut = checkTime(milisec)
+        secOut = checkTime(sec)
+        minOut = checkTime(min)
+        hourOut = checkTime(hour)
+
+        milisec = ++milisec
+
+        if (milisec === 100) {
+            milisec = 0
+            sec = ++sec
+        }
+
+        if (sec == 60) {
+            min = ++min
+            sec = 0
+        }
+
+        if (min == 60) {
+            min = 0
+            hour = ++hour
+        }
+
+        document.getElementById('milisec').innerHTML = miliSecOut
+        document.getElementById('sec').innerHTML = secOut + ' : '
+        document.getElementById('min').innerHTML = minOut + ' : '
+        document.getElementById('hour').innerHTML = hourOut + ' : '
+
+    }
+    const checkTime = (i) => {
+        if (i < 10) {
+            i = '0' + i
+        }
+        return i
+    }
+    let i = 1
+    const reset = () => {
+        milisec = 0
+        sec = 0
+        min = 0
+        hour = 0
+        i = 1
+
+        document.getElementById('milisec').innerHTML = '00'
+        document.getElementById('sec').innerHTML = '00 : '
+        document.getElementById('min').innerHTML = '00 : '
+        document.getElementById('hour').innerHTML = '00 : '
+        document.getElementById('lapTimer').innerHTML = ''
+    }
+   
+
+    const lap = () => {
+        arrLapTimer =  i + ' = ' + (hourOut) + ' : ' + (minOut) + ' : ' + (secOut) + ' : ' + (miliSecOut) + '</br>'
+        i++
+        document.getElementById('lapTimer').innerHTML += arrLapTimer
+    }
+
+</script>
+
+</html>
